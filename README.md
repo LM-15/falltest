@@ -1,5 +1,11 @@
 # Documentation of the RM title query
 
+## Contents
+* [Status]
+* [Purpose]
+* [Hardcoded filters (assumptions)]
+
+
 ## Status
 
 ## Purpose

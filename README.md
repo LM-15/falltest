@@ -38,7 +38,7 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   
 #### Parameter filters:
 
-SQL allows you to input text to filter by: resource format, receipt status, date, location and call number.
+* SQL allows you to input text to filter by: resource format, receipt status, date, location and call number.
 
 <details>
   <summary>Click to read more!</summary>
@@ -67,9 +67,9 @@ SQL allows you to input text to filter by: resource format, receipt status, date
   </details>
   
   #### Other fields you might want to filter on in results:
-* Instance previously held
-* Super relation type name  (to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting parent title)
-* Sub relation type name
+    * Instance previously held
+    * Super relation type name  (to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting parent title)
+    * Sub relation type name
 
 ## Output
 Aggregation:  this report provides counts grouped by:

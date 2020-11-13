@@ -20,7 +20,7 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   
   ## Filters
   
-  ### Harcoded filters (assumptions):
+  #### Harcoded filters (assumptions):
 * Includes only titles cataloged and made ready for use.
 * Excludes: e-resources; suppressed instance record counts, and counts of instance records with only suppressed holdings records.  
 
@@ -34,9 +34,9 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   * Excludes instance records with instance format names of “computer – online resource” or “ISNULL.”  And excludes instance records with holdings library names of “Online” or “ISNULL.”  (Online resource counts are excluded even if tracked in the Inventory; see the ERM queries for online titles held counts. Each reporter must know where her/his institution’s various resources are tracked and find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.)
   </details>
   
-### Parameter filters:
+#### Parameter filters:
 
-You can type in text to filter by: resource format, receipt status, date, location and call number
+SQL allows you to input text to filter by: resource format, receipt status, date, location and call number.
 
 <details>
   <summary>Click to read more!</summary>
@@ -50,17 +50,40 @@ You can type in text to filter by: resource format, receipt status, date, locati
     * Inventory modes of issuance name (e.g., serial, integrating resource, single unit, unspecified, etc.)
     * Holdings types name (e.g., physical, electronic, serial, mutli-part monograph, etc.)
 * Receipt status
-o	Holdings receipt status (e.g., not currently received)
-•	Date:
-o	Cataloged date (allows you to specify start and end date)
-o	[Is this usable yet?] Date published
-•	Location: (where housed)
-o	Holdings permanent location id
-o	Holdings location name
-o	Holdings campus name
-o	Holdings institution name
-•	Call number  [how do we suggest they use?]
-o	Holdings call number types name (e.g., LC, NLM, Dewey Decimal, etc.)
-o	Holdings call number
-
+  * Holdings receipt status (e.g., not currently received)
+* Date:
+  * Cataloged date (allows you to specify start and end date)
+  * [Is this usable yet?] Date published
+* Location: (where housed)
+  * Holdings permanent location id
+  * Holdings location name
+  * Holdings campus name
+  * Holdings institution name
+* Call number  [how do we suggest they use?]
+  * Holdings call number types name (e.g., LC, NLM, Dewey Decimal, etc.)
+  * Holdings call number
   </details>
+  
+  #### Other fields you might want to filter on in results:
+
+* Instance previously held
+* Super relation type name  (to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting parent title)
+* Sub relation type name
+
+## Output
+Aggregation:  this report provides counts grouped by:
+* Instance types name
+* Modes of issuance name
+* Instance formats name
+* Instance statistical code name
+* Instance nature of content terms
+* Holdings types name
+* Holdings call number types name
+* Holdings statistical code name
+* Holdings receipt status
+* Instance previously held
+* Holdings location name
+* Super relation type name  
+* Sub relation type name
+
+

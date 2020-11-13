@@ -32,7 +32,7 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   * Each instance has a holdings record.  Each holdings record has a permanent location.
   * Excludes suppressed instance records (instance discovery suppress value is “true”)
   * [When this field becomes available:] Excludes instance record that do not have at least one holdings record not suppressed (all holdings discovery suppress values are “true”)
-  * Includes counts of titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if  your institution sets an instance statuses name for unpurchased patron driven acquisition items, they can be excluded in this way.  [This hard coded filter not currently set because of a lack of test data]
+  * Includes counts of titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if  your institution sets an instance statuses name for unpurchased patron driven acquisition items, they can be excluded in this way (e.g., one library may use "pda unpurchased").  [This hard coded filter not currently set because of a lack of test data]
   * Excludes instance records with instance format names of “computer – online resource” or “ISNULL.”  And excludes instance records with holdings library names of “Online” or “ISNULL.”  (Online resource counts are excluded even if tracked in the Inventory; see the ERM queries for online titles held counts. Each reporter must know where her/his institution’s various resources are tracked and find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.)
   </details>
   
@@ -101,17 +101,19 @@ Aggregation:  this report provides counts grouped by:
     * counting separately multiople formats attached to the same record (maybe by unique instances and unique holdings formats)
     * consortial concerns for counting
     * info tracked possibly through holdings records notes?: previous bindings, copy notes, dedications, inscriptions
-  * Data is accessible in LDP 
+    * language (but also more standardizable from source record? In instance record repeatable, but if primary would be first language)
+  * Data is accessible in LDP, or accessible in a more standard way? 
     * dateOfPublication (date of publication from source record more standardizable?)
     * holdings discovery suppress (not in LDP at this time)
     * instance status updated date (not in LDP at this time)
     * country of publication (soure record)
     * geographic area code (source record)
-    * language
-    * if open access item
-    * withdrawn in timeframe
+    * language (lanuage from source record more standardizable?)
+    * if open access item (source record?)
+    * withdrawn in timeframe (instance supresssed with status update date in timeframe??)
     * transferred within the institution in a time period
-    * has retention requirements / is an obligatory copy
+    * bound with (will be check box on holdings?)
+    * has retention requirements / is an obligatory copy (have retention policy field on holdings)
     * government document
     * left by decedents
     * Received as gifts

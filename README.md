@@ -93,6 +93,8 @@ Aggregation: This report provides counts grouped by:
 * Sub relation type name
 
 ## To be done before the R1 2021 release? / Questions for Nancy and Axel
+<details>
+  <summary>Click to read more!</summary>
 * Remove the query comments that say we will add more values to exclude e-resources (we added some text above to indicate institutions may need to adjust).
 * language - should we add?  Appears to be available in the Instance JSON info.  It is supposed to be repeatable.  I think Laura D. though said that the first language would be the primary language if there is one.  Will the source record provide it in a more standardized way eventually?
 * If the holdings discover suppress field becomes available, add it and update the commenting.
@@ -107,7 +109,9 @@ Aggregation: This report provides counts grouped by:
 * Do we want to add inventory statistical code types?
 * What is difference between permanent loc and library name?
 * Will folks think it's odd that we're not counting e-resources tracked in the Inventory in the same query?  Guess not maybe for items.
-
+* Check the table of contents.  Are there referential problems if using a branch to update?
+  </details>
+  
 ## Requests not yet addressed
 <details>
   <summary>Click to read more!</summary>

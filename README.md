@@ -9,7 +9,7 @@
 
 
 ## Status
-This query has been reviewed, but we are updating it to use relevant derived tables.
+This query has been reviewed, but we are updating it to use the relevant derived tables.
 
 ## Purpose
 To provide **title** counts for **non-electronic** resources cataloged in the Inventory.  
@@ -18,7 +18,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   <summary>Click to read more!</summary>
   
   * Provides unique title counts (i.e., only one count if more than one copy/subscription).  
-  * Each institution will want to modify this query to suit their local needs.  This query is built to include many of the measures commonly used to get overall title counts, such as those recording bibliographic format and library location information.  Some paramter filters are available.  We also try to spell out which assumptions are made that some institutions may need to adjust. 
+  * Each institution will want to modify this query to suit their local needs.  This query is built to include many of the measures commonly used to get overall title counts, such as those recording bibliographic format and library location information.  Some paramter filters are available.  We also try to spell out which assumptions are made, some of which some institutions may need to adjust. 
   * Queries to count e-resources (whether tracked through the ERM or the Inventory) are available separately. Each reporter must know where her/his institution’s various resources are tracked and find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.
   * Note that it is generally assumed that if you need a holdings count as of a certain date, you take it on that date; while you may be able to use processing dates to exclude resources newly added after a certain date, you cannot get back titles that were withdrawn or transferred.
   * Local and national definitions can be updated from year to year; be sure to review for needed changes.
@@ -28,10 +28,10 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   
   #### Harcoded filters (assumptions):
 * Includes only titles cataloged and made ready for use.
-* Excludes: e-resources; suppressed instance record counts, and counts of instance records with only suppressed holdings records.  
+* Excludes: e-resources; suppressed instance records, and instance records with only suppressed holdings records.  
 
 <details>
-  <summary>Click to read more!</summary>
+  <summary>*Click to read more!*</summary>
   
   * Each instance has a holdings record.  Each holdings record has a permanent location.
   * Excludes suppressed instance records (instance discovery suppress value is “true”)

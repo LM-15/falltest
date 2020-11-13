@@ -31,7 +31,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
 * Excludes: e-resources; suppressed instance records, and instance records with only suppressed holdings records.  
 
 <details>
-  <summary>*Click to read more!*</summary>
+  <summary> *Click to read more!* </summary>
   
   * Each instance has a holdings record.  Each holdings record has a permanent location.
   * Excludes suppressed instance records (instance discovery suppress value is “true”)

@@ -34,4 +34,33 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   * Excludes instance records with instance format names of “computer – online resource” or “ISNULL.”  And excludes instance records with holdings library names of “Online” or “ISNULL.”  (Online resource counts are excluded even if tracked in the Inventory; see the ERM queries for online titles held counts. Each reporter must know where her/his institution’s various resources are tracked and find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.)
   </details>
   
+###Parameter filters:
 
+You can type in text to filter by: resource format, receipt status, date, location and call number
+
+<details>
+  <summary>Click to read more!</summary>
+  
+  * Resource format (Reporters need to know how their institutions records format information locally; it may use one of more of these fields, but not all of these commonly used fields listed here.  You may want to remove all references to unneeded fields throughout the query.)
+  * Instance types name (e.g., text, video, computer dataset, etc.)  (query allows up to three selected simultaneously)
+  * Instance formats name (e.g., video – videocassette, unmediated – sheet, microform – microfilm roll, etc.)  (query allows up to three selected simultaneously)
+  * Instance nature of content terms (e.g., autobiography, journal, newspaper, research report, etc.)
+o	Instance statistical code name
+o	Holdings statistical code name
+o	Inventory modes of issuance name (e.g., serial, integrating resource, single unit, unspecified, etc.)
+o	Holdings types name (e.g., physical, electronic, serial, mutli-part monograph, etc.)
+•	Receipt status
+o	Holdings receipt status (e.g., not currently received)
+•	Date:
+o	Cataloged date (allows you to specify start and end date)
+o	[Is this usable yet?] Date published
+•	Location: (where housed)
+o	Holdings permanent location id
+o	Holdings location name
+o	Holdings campus name
+o	Holdings institution name
+•	Call number  [how do we suggest they use?]
+o	Holdings call number types name (e.g., LC, NLM, Dewey Decimal, etc.)
+o	Holdings call number
+
+  </details>

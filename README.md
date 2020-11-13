@@ -1,4 +1,4 @@
-# Documentation of the RM title query
+# Documentation for the RM title query
 
 ## Contents
 * [Status](https://github.com/LM-15/falltest/blob/main/README.md#status)
@@ -9,15 +9,19 @@
 
 
 ## Status
-This query has been reviewed for code syntax and style, approved by the community, and provided with machine test files.
+This query has been reviewed, but we are updating it to use relevant derived tables.
 
 ## Purpose
-To provide title counts for non-electronic resources cataloged in the Inventory.  
+To provide **title** counts for **non-electronic** resources cataloged in the Inventory.  
 
 <details>
   <summary>Click to read more!</summary>
   
-  * Provides unique title counts (i.e., only one count if more than one copy/subscription).  See assumptions and filters available below. Note that it is It is generally assumed that if you need a holdings count as of a certain date, you take it on that date; while you can use processing dates to exclude items newly added after a certain date, you cannot get back titles that were withdrawn or transferred through this query. Local and national definitions can be updated from year to year; be sure to review for needed changes.
+  * Provides unique title counts (i.e., only one count if more than one copy/subscription).  
+  * Each institution will want to modify this query to suit their local needs.  This query is built to include many of the measures commonly used to get overall title counts, such as those recording bibliographic format and library location information.  Some paramter filters are available.  We also try to spell out which assumptions are made that some institutions may need to adjust. 
+  * Queries to count e-resources (whether tracked through the ERM or the Inventory) are available separately. Each reporter must know where her/his institution’s various resources are tracked and find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.
+  * Note that it is generally assumed that if you need a holdings count as of a certain date, you take it on that date; while you may be able to use processing dates to exclude resources newly added after a certain date, you cannot get back titles that were withdrawn or transferred.
+  * Local and national definitions can be updated from year to year; be sure to review for needed changes.
   </details>
   
   ## Filters
@@ -32,18 +36,18 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   * Each instance has a holdings record.  Each holdings record has a permanent location.
   * Excludes suppressed instance records (instance discovery suppress value is “true”)
   * [When this field becomes available:] Excludes instance record that do not have at least one holdings record not suppressed (all holdings discovery suppress values are “true”)
-  * Includes counts of titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if  your institution sets an instance statuses name for unpurchased patron driven acquisition items, they can be excluded in this way (e.g., one library may use "pda unpurchased").  [This hard coded filter not currently set because of a lack of test data]
-  * Excludes instance records with instance format names of “computer – online resource” or “ISNULL.”  And excludes instance records with holdings library names of “Online” or “ISNULL.”  (Online resource counts are excluded even if tracked in the Inventory; see the ERM queries for online titles held counts. Each reporter must know where her/his institution’s various resources are tracked and find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.)
+  * Includes counts of only those titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if your institution sets an instance status of, e.g., "pda unpurchased" you can exclude unpurchased patron driven acquisitions items if needed. [This hard coded filter is currently commented out because of a lack of test data]
+  * This query is intended to exclude e-resources.  It excludes instance records with instance format names of “computer – online resource” or “ISNULL,”  and excludes instance records with holdings library names of “Online” or “ISNULL.” These values many need to be updated for your local needs.
   </details>
   
 #### Parameter filters:
 
-* SQL allows you to input text to filter by: resource format, receipt status, date, location and call number.
+* Throught parameter filters, this SQL allows you to easily type in text to filter by: resource format, receipt status, date, location and call number.  
 
 <details>
   <summary>Click to read more!</summary>
   
-  * Resource format (Reporters need to know how their institutions records format information locally; it may use one of more of these fields, but not all of these commonly used fields listed here.  You may want to remove all references to unneeded fields throughout the query.
+  * Resource format (Reporters need to know how their institutions records format information locally; it may use one of more of these fields, but not all of these commonly used fields listed here.)
     * Instance types name (e.g., text, video, computer dataset, etc.)  (query allows up to three selected simultaneously)
     * Instance formats name (e.g., video – videocassette, unmediated – sheet, microform – microfilm roll, etc.)  (query allows up to three selected simultaneously)
     * Instance nature of content terms (e.g., autobiography, journal, newspaper, research report, etc.)
@@ -56,14 +60,15 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
 * Date:
   * Cataloged date (allows you to specify start and end date)
   * [Is this usable yet?] Date published
-* Location: (where housed)
+* Location: (where housed) (institutions with a consortial database may to specify location information to verify ownership (e.g., instance record not enough alone))
   * Holdings permanent location id
   * Holdings location name
   * Holdings campus name
   * Holdings institution name
-* Call number  [how do we suggest they use?]
+* Call number:   [how do we suggest they use?]
   * Holdings call number types name (e.g., LC, NLM, Dewey Decimal, etc.)
   * Holdings call number
+  * Note that the call number field is a text string only (no breakouts)
   </details>
   
   #### Other fields you might want to filter on in results:
@@ -87,15 +92,22 @@ Aggregation:  this report provides counts grouped by:
 * Super relation type name  
 * Sub relation type name
 
-## In Progress
+## To be done before the R1 2021 release / Questions for Nancy and Axel
+What are the "super relation type name" and the "sub relation type name"?  Are we using them to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting parent title?
+I noticed a "bound with" relationsi
+
+
+TO BE DONE BEFORE R1 2021 PENDING ITEMS WHAT CAN WE GET DONE.  REQUIRE THE INSTITION TO BE A SPECIFIC THING
+
+## In Progress    ITEMS TO TAKE INTO CONSIDERATION KEEP IN MIND...
 <details>
   <summary>Click to read more!</summary>
   See this page for additiona info recorded by the Resource Management reporters: https://wiki.folio.org/x/OA8uAg 
   
 * Will add/address these requests when:
-  * More records are available in the LDP
-    * the hardcoded filter for instance statuses names of “cataloged” or “batch loaded” is not yet included because of a lack of test data.
-  * We find out more about how institutions are coding or when fields are available in LDP
+  * More records are available in the LDP  REMOVE THIS BECAUSE WILL BE UP ABOVE
+    * the hardcoded filter for instance statuses names of “cataloged” or “batch loaded” is currently commented out due to lack of test data.  Users can enable it any time they wish.
+  * We find out more about how institutions are coding or when fields are available in LDP  TELLING PEOPLE THEY MAY NEED TO UPDATE IN ASSMPTIONS
     * add more filters and values for virtual titles as hardcoded filter (instance type, nature of content, inventory libraries name)
   * When have more time?
     * counting separately multiople formats attached to the same record (maybe by unique instances and unique holdings formats)
@@ -108,7 +120,7 @@ Aggregation:  this report provides counts grouped by:
     * instance status updated date (not in LDP at this time)
     * country of publication (soure record)
     * geographic area code (source record)
-    * language (lanuage from source record more standardizable?)
+    * language (language from source record more standardizable?)
     * if open access item (source record?)
     * withdrawn in timeframe (instance supresssed with status update date in timeframe??)
     * transferred within the institution in a time period

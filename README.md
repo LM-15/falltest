@@ -90,22 +90,29 @@ Aggregation:  this report provides counts grouped by:
 ## In Progress
 <details>
   <summary>Click to read more!</summary>
+  See this page for additiona info recorded by the Resource Management reporters: https://wiki.folio.org/x/OA8uAg 
   
 * Will add/address these requests when:
   * More records are available in the LDP
     * the hardcoded filter for instance statuses names of “cataloged” or “batch loaded” is not yet included because of a lack of test data.
   * We find out more about how institutions are coding or when fields are available in LDP
     * add more filters and values for virtual titles as hardcoded filter (instance type, nature of content, inventory libraries name)
-  * Data is accessible in LDP
-    * dateOfPublication (date of publication from MARC source more standardizable?)
+  * When have more time?
+    * counting separately multiople formats attached to the same record (maybe by unique instances and unique holdings formats)
+    * consortial concerns for counting
+    * info tracked possibly through holdings records notes?: previous bindings, copy notes, dedications, inscriptions
+  * Data is accessible in LDP 
+    * dateOfPublication (date of publication from source record more standardizable?)
     * holdings discovery suppress (not in LDP at this time)
     * instance status updated date (not in LDP at this time)
-    * geographic area about
+    * country of publication (soure record)
+    * geographic area code (source record)
     * language
     * if open access item
     * withdrawn in timeframe
     * transferred within the institution in a time period
     * has retention requirements / is an obligatory copy
+    * government document
     * left by decedents
     * Received as gifts
     * Acquired as part of a project

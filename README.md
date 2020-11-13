@@ -3,9 +3,9 @@
 ## Contents
 * [Status](https://github.com/LM-15/falltest/blob/main/README.md#status)
 * [Purpose](https://github.com/LM-15/falltest/blob/main/README.md#purpose)
-* [Filters](https://github.com/LM-15/falltest/blob/main/README.md#hardcoded-filters-assumptions)
+* [Filters](https://github.com/LM-15/falltest/blob/main/README.md#filters)
 * [Output](https://github.com/LM-15/falltest/blob/main/README.md#output)
-* [In Progress](https://github.com/LM-15/falltest/blob/main/README.md#still-in-progress) 
+* [In Progress](https://github.com/LM-15/falltest/blob/main/README.md#in-progress) 
 
 
 ## Status

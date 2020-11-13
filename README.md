@@ -1,4 +1,4 @@
-# Documentation for the RM title query ^^^^^
+# Documentation for the RM title query
 
 ## Contents
 * [Status](https://github.com/LM-15/falltest/blob/main/README.md#status)

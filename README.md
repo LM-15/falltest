@@ -5,8 +5,8 @@
 * [Purpose](https://github.com/LM-15/falltest/blob/main/README.md#purpose)
 * [Filters](https://github.com/LM-15/falltest/blob/main/README.md#filters)
 * [Output](https://github.com/LM-15/falltest/blob/main/README.md#output)
-* [To be done before the R1 2021 release? / Questions for Nancy and Axel](https://github.com/LM-15/falltest/blob/main/README.md#to_be_done_before_the_R1_2021_release) 
-* [Requests not yet addressed](https://github.com/LM-15/falltest/blob/main/README.md#requests_not_yet_addressed) 
+* [To be done before the R1 2021 release? / Questions for Nancy and Axel](https://github.com/LM-15/falltest/blob/main/README.md#to-be-done-before-the-r1-2021-release--questions-for-nancy-and-axel) 
+* [Requests not yet addressed](https://github.com/LM-15/falltest/blob/main/README.md#requests-not-yet-addressed) 
 
 
 ## Status

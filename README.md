@@ -65,7 +65,6 @@ SQL allows you to input text to filter by: resource format, receipt status, date
   </details>
   
   #### Other fields you might want to filter on in results:
-
 * Instance previously held
 * Super relation type name  (to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting parent title)
 * Sub relation type name
@@ -86,4 +85,27 @@ Aggregation:  this report provides counts grouped by:
 * Super relation type name  
 * Sub relation type name
 
-
+## Still in progress
+<details>
+  <summary>Click to read more!</summary>
+  
+* Will add/address these requests when:
+  * More records are available in the LDP
+    * the hardcoded filter for instance statuses names of “cataloged” or “batch loaded” is not yet included because of a lack of test data.
+  * We find out more about how institutions are coding or when fields are available in LDP
+    * add more filters and values for virtual titles as hardcoded filter (instance type, nature of content, inventory libraries name)
+  * Data is accessible in LDP
+    * dateOfPublication (date of publication from MARC source more standardizable?)
+    * holdings discovery suppress (not in LDP at this time)
+    * instance status updated date (not in LDP at this time)
+    * geographic area about
+    * language
+    * if open access item
+    * withdrawn in timeframe
+    * transferred within the institution in a time period
+    * has retention requirements / is an obligatory copy
+    * left by decedents
+    * Received as gifts
+    * Acquired as part of a project
+    * Identifying records for collections like CRL if in catalog, so can be excluded for national reporting
+  </details>

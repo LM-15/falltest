@@ -3,7 +3,7 @@
 ## Contents
 * [Status](https://github.com/LM-15/falltest/blob/main/README.md#status)
 * [Purpose](https://github.com/LM-15/falltest/blob/main/README.md#purpose)
-* [Hardcoded filters (assumptions)](https://github.com/LM-15/falltest/blob/main/README.md#hardcoded-filters-assumptions)
+* [Filters](https://github.com/LM-15/falltest/blob/main/README.md#hardcoded-filters-assumptions)
 testing a change
 
 
@@ -19,7 +19,7 @@ To provide title counts for non-electronic resources cataloged in the Inventory.
   * Provides unique title counts (i.e., only one count if more than one copy/subscription).  See assumptions and filters available below. Note that it is It is generally assumed that if you need a holdings count as of a certain date, you take it on that date; while you can use processing dates to exclude items newly added after a certain date, you cannot get back titles that were withdrawn or transferred through this query. Local and national definitions can be updated from year to year; be sure to review for needed changes.
   </details>
   
-  ## Filters:
+  ## Filters
   
   ### Harcoded filters (assumptions):
 * Includes only titles cataloged and made ready for use.

@@ -95,6 +95,7 @@ Aggregation: This report provides counts grouped by:
 ## To be done before the R1 2021 release? / Questions for Nancy and Axel
 <details>
   <summary>Click to read more!</summary>
+  
 * Remove the query comments that say we will add more values to exclude e-resources (we added some text above to indicate institutions may need to adjust).
 * language - should we add?  Appears to be available in the Instance JSON info.  It is supposed to be repeatable.  I think Laura D. though said that the first language would be the primary language if there is one.  Will the source record provide it in a more standardized way eventually?
 * If the holdings discover suppress field becomes available, add it and update the commenting.

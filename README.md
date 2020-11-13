@@ -4,6 +4,8 @@
 * [Status](https://github.com/LM-15/falltest/blob/main/README.md#status)
 * [Purpose](https://github.com/LM-15/falltest/blob/main/README.md#purpose)
 * [Filters](https://github.com/LM-15/falltest/blob/main/README.md#hardcoded-filters-assumptions)
+* [Output](https://github.com/LM-15/falltest/blob/main/README.md#output)
+* [In Progress](https://github.com/LM-15/falltest/blob/main/README.md#still-in-progress) 
 
 
 ## Status
@@ -85,7 +87,7 @@ Aggregation:  this report provides counts grouped by:
 * Super relation type name  
 * Sub relation type name
 
-## Still in progress
+## In Progress
 <details>
   <summary>Click to read more!</summary>
   

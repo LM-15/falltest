@@ -37,7 +37,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   * Each instance has a holdings record.  Each holdings record has a permanent location.
   * Excludes suppressed instance records (instance discovery suppress value is “true”)
   * [When this field becomes available:] Excludes instance records that do not have at least one unsuppressed holdings record (all holdings discovery suppress values are “true”)
-  * Includes only those titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if your institution sets an instance status of, e.g., "pda unpurchased" you can exclude unpurchased patron driven acquisitions items if needed. [This hard coded filter is currently commented out because of a lack of test data.]
+  * [This hardcoded filter is currently commented out because of a lack of test data.] Includes only those titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if your institution sets an instance status of, e.g., "pda unpurchased" you can exclude unpurchased patron driven acquisitions items if needed. 
   * This query is intended to exclude e-resources. It excludes instance records with instance format names of “computer – online resource” or “ISNULL,”  and excludes instance records with holdings library names of “Online” or “ISNULL.” These values many need to be updated for your local needs.
   </details>
   
@@ -102,22 +102,21 @@ Aggregation: This query provides counts grouped by:
 * Is "date published" usable yet?  Or will the data be better from the source records?  It is listed in the query in the MAIN TABLES WITH NEEDED COLUMNS commented section of the query, but also in the STILL IN PROGRESS section of the query.
 * Axel, is the note about using institutinal locations (in the readme paramter filters section) good enough on the consortial database issue?
 * About filtering by call nubmer: all we can advise is using truncation for the call number fitler, right?  No changes on call number parts being separated right?
-* Can we document what we think these fields are useful for?: "super relation type name"; "sub relation type name." Are we using them to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting only parent titles?  I noticed that there is a "bound with" value for the inventory instance relationships types name measure, but I think earlier notes say Laura Daniels thought bound with info would be best through the holdings record (a true/false measure)?
+* "super relation type name"; "sub relation type name"  Can we document what we think these fields are useful for? Are we using them to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting only parent titles?  I noticed that there is a "bound with" value for the inventory instance relationships types name measure, but I think earlier notes say Laura Daniels thought bound with info would be best through the holdings record (a true/false measure)?
 * Do I have the output correct?
 * What to call the next section if not "Requests not yet addressed."  (Some ealier suggestions:  in progress; items to take into consideration; items to keep in mind)
 * Do we want to add acquistion method to identify items recieved as gifts, or is that measure too unreliable?
 * Do we want to add inventory statistical code types?  Chicago uses?
 * What is the difference between permanent loc and library name?
 * Will folks think it's odd that we're not counting e-resources tracked in the Inventory in the same query?  Guess not maybe for items.
-* Check the table of contents.  Are there referential problems if using a branch to update?
-* Instance previously held  (to identify titles digitized owned previously in paper?)
+* * Is Instance previously held to identify titles digitized owned previously in paper?
   </details>
   
 ## Requests not yet addressed
 <details>
   <summary>Click to read more!</summary>
+  
   See this page for additional information recorded by the Resource Management reporters: https://wiki.folio.org/x/OA8uAg 
-
   * Counting separately multiple formats cataloged on the same instance record (maybe by unique instances and unique holdings formats?)
   * Information tracked possibly through holdings records notes?: previous bindings, copy notes, dedications, inscriptions, left by decedents?
   * When fields available?:

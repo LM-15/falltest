@@ -10,7 +10,7 @@
 
 
 ## Status
-This query has been reviewed, but it is being updated to use the relevant derived tables.
+As of 11/18/20, this query has been reviewed, but it is being updated to use the relevant derived tables.
 
 ## Purpose
 To provide **title** counts for **non-electronic** resources cataloged in the Inventory.  
@@ -27,7 +27,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   
   ## Filters
   
-  #### Hardcoded filters (assumptions):
+  #### Hardcoded filters (assumptions; in the where clause):
 * Includes only titles cataloged and made ready for use.
 * Excludes: e-resources; suppressed instance records, and instance records with only suppressed holdings records.  
 
@@ -41,7 +41,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   * This query is intended to exclude e-resources. It excludes instance records with instance format names of “computer – online resource” or “ISNULL,”  and excludes instance records with holdings library names of “Online” or “ISNULL.” These values many need to be updated for your local needs.
   </details>
   
-#### Parameter filters:
+#### Parameter filters (at the top of the query):
 
 * Throught parameter filters, this SQL allows you to easily type in text to filter by: resource format, receipt status, date, location and call number.  
 

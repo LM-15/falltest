@@ -19,7 +19,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   <summary>Click to read more!</summary>
   
   * Provides unique title counts (i.e., only one count if more than one copy/subscription).  
-  * Each institution will want to modify this query to suit their local needs. This query was built to include many of the measures commonly used to get overall title counts, such as those that record bibliographic format and library location information. Some parameter filters are available.  We also try to spell out which assumptions are made, some of which individual institutions may need to adjust. 
+  * Modify this query to suit your local needs. This query was built to include many of the measures commonly used to get overall title counts, such as those that record bibliographic format and library location information. Some parameter filters are available.  We also try to spell out which assumptions are made, some of which individual institutions may need to adjust. 
   * Queries to count e-resources (whether tracked through the ERM or the Inventory) are available separately. Each reporter must know where their institution’s various resources are tracked and should find the needed reports as appropriate, adding together counts if needed, and avoiding any duplication if possible.
   * Note that it is generally assumed that if you need a holdings count as of a certain date, you take it on that date; while you may be able to use processing dates to exclude resources newly added after a certain date, you cannot get back titles that were withdrawn or transferred.
   * Local and national definitions can be updated from year to year; be sure to review for needed changes.
@@ -95,7 +95,7 @@ Aggregation: This query provides counts grouped by:
 <details>
   <summary>Click to read more!</summary>
   
-* Update to: UPdate values as needed.  Remove the query comments that say we will add more values to exclude e-resources (we added some text above to indicate institutions may need to adjust the values).
+* In the WHERE clause, update the comment from "-- filter all virtual titles (surely need more virtual indicators)" to   Remove the query comments that say we will add more values to exclude e-resources (we added some text above to indicate institutions may need to adjust the values).
 * would be first 3 letters.  will take the first language as the primary if more than 1.  will only take the first one.  update the query to do that.  language - should we add?  Appears to be available in the Instance JSON info. It is supposed to be repeatable. I think Laura D. said that the first language would be the primary language if there is one.  Will the source record provide language information in a more standardized way eventually?
 * Move this to can't be done yet.  No date.   If the holdings discover suppress field becomes available, add it and update the query commenting.
 * leave here; THIS WILL BECOME A PARAMTER Un-comment-out the hardcoded filter for instance statuses which we commented out because of a lack of test data. 

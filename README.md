@@ -28,7 +28,6 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   ## Filters
   
   #### Hardcoded filters (assumptions; in the where clause):
-* Includes only titles cataloged and made ready for use.
 * Excludes: e-resources; suppressed instance records, and instance records with only suppressed holdings records.  
 
 <details>
@@ -37,17 +36,18 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   * Each instance has a holdings record.  Each holdings record has a permanent location.
   * Excludes suppressed instance records (instance discovery suppress value is “true”)
   * [When this field becomes available:] Excludes instance records that do not have at least one unsuppressed holdings record (all holdings discovery suppress values are “true”)
-  * [This hardcoded filter is currently commented out because of a lack of test data.] Includes only those titles cataloged and made ready for use (records with instance statuses names of “cataloged” or “batch loaded”).  Note that if your institution sets an instance status of, e.g., "pda unpurchased" you can exclude unpurchased patron driven acquisitions items if needed. TURN THIS INTO A PARAMETER?
   * This query is intended to exclude e-resources. It excludes instance records with instance format names of “computer – online resource” or “ISNULL,”  and excludes instance records with holdings library names of “Online” or “ISNULL.” These values many need to be updated for your local needs.
   </details>
   
 #### Parameter filters (at the top of the query):
 
-* Throught parameter filters, this SQL allows you to easily type in text to filter by: resource format, receipt status, date, location and call number.  
+* Throught parameter filters, this SQL allows you to easily type in text to filter by: resource format, receipt status, language, date, location and call number.  
 
 <details>
   <summary>Click to read more!</summary>
   
+  * Instance statuses:
+    * Instance statuses name (you can use this paramter to include only those titles cataloged and made ready for use; for many institutions, this would be "cataloged" and "batchloaded"; note that if your institution sets an instance status of, e.g., "pda unpurchased" you can exclude unpurchased patron driven acquisitions items if needed) (query allows up to two selected simultaneously)
   * Resource format: (Reporters need to know how their institution's records format information locally; it may use one of more of these commonly used fields, but not all of them.)
     * Instance types name (e.g., text, video, computer dataset, etc.)  (query allows up to three selected simultaneously)
     * Instance formats name (e.g., video – videocassette, unmediated – sheet, microform – microfilm roll, etc.)  (query allows up to three selected simultaneously)
@@ -58,6 +58,8 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
     * Holdings types name (e.g., physical, electronic, serial, mutli-part monograph, etc.)
 * Receipt status:
   * Holdings receipt status (e.g., not currently received)
+* Language:
+  * Languages (field repeatable; if more than one language, the first is the primary language if there is one; use %% as wildcards; use, e.g., "%%eng%%" to get all titles that are fully or partially in english.)
 * Date:
   * Cataloged date (allows you to specify start and end date)
 * Location: (where housed) (institutions with a consortial database may need to filter with their institutional location information to verify ownership (i.e., presence of instance record alone not enough))
@@ -96,10 +98,9 @@ Aggregation: This query provides counts grouped by:
   <summary>Click to read more!</summary>
   
 * In the WHERE clause, update the comment from "-- filter all virtual titles (surely need more virtual indicators)" to "-- filter all virtual titles (update values as needed)."
-* Add "language" from the JSON data.  Take only the first listed (3 letters).  Indicate that the language included in the would be first 3 letters.  will take the first language as the primary if more than 1.  will only take the first one.  update the query to do that.  language - should we add?  Appears to be available in the Instance JSON info. It is supposed to be repeatable. I think Laura D. said that the first language would be the primary language if there is one.  Will the source record provide language information in a more standardized way eventually?
-* Move this to can't be done yet.  No date.   If the holdings discover suppress field becomes available, add it and update the query commenting.
-* leave here; THIS WILL BECOME A PARAMTER Un-comment-out the hardcoded filter for instance statuses which we commented out because of a lack of test data. 
-* NO UPDATE ON THIS YET.  WE CAN BRING IN BUT NOT IN A STANDARDIZED FORMAT. thISOND:  AT THIS TIME NOT BRINGIN IN THE DATE OF PUBLICADTION BECAUSE OF ITS NOT IN STANDARDSIZED FORM; INSTITUTIONS MAY CONCIDERE BRINGING IT IN WITH PARSING OPTIONS TO THEIR NEEDS.   LINDA LOOKS AT FIXED FIELDS.  WILL UPDATE TO BRING IN.  WILL HAVE AS A FILTER.  IF INSTITUTION ABLE TO PARSING .  ONLY WAY CAN USE IN FILTER IS TRUNCATE.  MENTION HAVE THIS DATE CAN BRING IN BUT ARE NOT TAKING THE TIME NOW TO WORK ON HOW TO PARSE; THERE ALSO MIGHT BE CLEANER OPTIONS WHEN THE SOURCE RECROD IS AVAILABLE.. NEEDS TO BE PARSED FOR CAN'T SORT ON BECAUSE NOT JUST A NUMBER. HOW TO HANDLE EXCEPTION.    Is "date published" usable yet?  Or will the data be better from the source records?  It is listed in the query in the MAIN TABLES WITH NEEDED COLUMNS commented section of the query, but also in the STILL IN PROGRESS section of the query.
+* Add "language" from the instance JSON data. I assume it would have a parameter filter? It's a repeatable field if there is more than one language. If more than one language, the first is the primary language if there is one.  We would indicate to use truncation right?  Guess we would advise using, e.g., "%%eng%%", because there is not always a primary language? Not sure the source record would make it any clearer.
+* Add two paramater filters for instance statuses name with "Cataloged" and "Batchloaded" as examples, and remove this from the WHERE clause hardcoded filters, including the comment used because of a lack of test data.  See note above. 
+* At this point in time, we are not bringing in the dataofpublication because it is not in standardized form; institutions may consider bringing it in with parsing options to suit their needs.  LINDA LOOKS AT FIXED FIELDS; SHOULD BE A CLEANER OPTION IN THE SOURCE RECORD WHEN AVAILABLE. Right now it is listed in the query in the MAIN TABLES WITH NEEDED COLUMNS commented section of the query, but also in the STILL IN PROGRESS section of the query.
 * Axel, is the note about using institutinal locations (in the readme paramter filters section) good enough on the consortial database issue?
 * About filtering by call nubmer: all we can advise is using truncation for the call number fitler, right?  No changes on call number parts being separated right?
 * "super relation type name"; "sub relation type name"  Can we document what we think these fields are useful for? Are we using them to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting only parent titles?  I noticed that there is a "bound with" value for the inventory instance relationships types name measure, but I think earlier notes say Laura Daniels thought bound with info would be best through the holdings record (a true/false measure)?
@@ -120,6 +121,7 @@ Aggregation: This query provides counts grouped by:
   * Counting separately multiple formats cataloged on the same instance record (maybe by unique instances and unique holdings formats?)
   * Information tracked possibly through holdings records notes?: previous bindings, copy notes, dedications, inscriptions, left by decedents?
   * When fields available?:
+    * When the holdings discover suppress field becomes available, add it to the WHERE hardcoded filters and update the query commenting.
     * country of publication (source record)
     * geographic area code (source record)
     * is open access (source record?)

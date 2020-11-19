@@ -13,7 +13,7 @@
 As of 11/18/20, this query has been reviewed, but it is being updated to use the relevant derived tables.
 
 ## Purpose
-To provide **title** counts for **non-electronic** resources cataloged in the Inventory.  
+To provide **title** counts for **non-electronic** resources cataloged in the Inventory by various breakouts.  
 
 <details>
   <summary>Click to read more!</summary>
@@ -59,11 +59,11 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
 * Receipt status:
   * Holdings receipt status (e.g., not currently received)
 * Language:
-  * Languages (field repeatable; if more than one language, the first is the primary language if there is one; use %% as wildcards; use, e.g., "%%eng%%" to get all titles that are fully or partially in english.)
+  * Languages (will include a value for each language used; if more than one language, the first is the primary language if there is one; use %% as wildcards; use, e.g., "%%eng%%" to get all titles that are fully or partially in english.)
 * Date:
   * Cataloged date (allows you to specify start and end date)
-* Location: (where housed) (institutions with a consortial database may need to filter with their institutional location information to verify ownership (i.e., presence of instance record alone not enough))
-  * Holdings permanent location id
+* Location: (where housed) (institutions with a shared consortial database may need to filter with their institutional location information to verify ownership (i.e., presence of instance record alone not enough))
+  * Holdings permanent location id (typically the lowest level in the location hierarchy -- the specific location within a library)
   * Holdings location name
   * Holdings campus name
   * Holdings institution name
@@ -73,9 +73,9 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   </details>
   
   #### Other fields you might want to filter on in results:
-    * Instance previously held  (to identify titles digitized owned previously in paper)
-    * Super relation type name  (to identify titles that are analyzed as part of a larger title; to be able to exclude if wanted if counting only parent titles)
-    * Sub relation type name
+    * Instance previously held  (indicates the item was "previously held" in terms of, for example, HathiTrust digital access)
+    * Super relation type name  (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other)
+    * Sub relation type name (see immediately above)
 
 ## Output
 Aggregation: This query provides counts grouped by:
@@ -98,18 +98,14 @@ Aggregation: This query provides counts grouped by:
   <summary>Click to read more!</summary>
   
 * In the WHERE clause, update the comment from "-- filter all virtual titles (surely need more virtual indicators)" to "-- filter all virtual titles (update values as needed)."
-* Add "language" from the instance JSON data. I assume it would have a parameter filter? It's a repeatable field if there is more than one language. If more than one language, the first is the primary language if there is one.  We would indicate to use truncation right?  Guess we would advise using, e.g., "%%eng%%", because there is not always a primary language? Not sure the source record would make it any clearer.
-* Add two paramater filters for instance statuses name with "Cataloged" and "Batchloaded" as examples, and remove this from the WHERE clause hardcoded filters, including the comment used because of a lack of test data.  See note above. 
-* AXEL, NANCY, DO WE WANT TO LEAVE THIS IN TEH MAIN TALBES WITH NEEDED COLUMNS SECTION (IT IS ALSO IN THE STILL IN PROGRESS SECTION OF THE QUERY).  At this point in time, we are not bringing in the instance dataofpublication because it is not in standardized form; institutions may consider bringing it in if they set up parsing options to suit their needs. Will likely add date one and date two data from the source record when available (MARC  008 (places 7-10 for date 1, and 11-14 for date 2)).
-* Axel, is the note about using institutinal locations (in the readme paramter filters section) good enough on the consortial database issue?
-* About filtering by call nubmer: all we can advise is using truncation for the call number fitler, right?  No changes on call number parts being separated right?
-* "super relation type name"; "sub relation type name"  Can we document what we think these fields are useful for? Are we using them to identify titles that are titles analyzed from within a larger title; to be able to exclude if wanted if counting only parent titles?  I noticed that there is a "bound with" value for the inventory instance relationships types name measure, but I think earlier notes say Laura Daniels thought bound with info would be best through the holdings record (a true/false measure)?
-* Do I have the output correct? NANCY WILL LOOK AT.
-* Do we want to add the holdings acquistion method ("purchased" is example in the folio-snapshot; MM document lists things like "gift", "deposit", "membership", "cooperative or consortial purchase", "lease" etc.) to identify items recieved as gifts, or is that measure too unreliable?  MM list: https://docs.google.com/spreadsheets/d/1RCZyXUA5rK47wZqfFPbiRM0xnw8WnMCcmlttT7B3VlI/edit#gid=139536469 LINDA ASK LAURA IF MANY PEOPLE WILL USE?
-* Do we want to add inventory statistical code types?  Chicago uses?  WILL NOT BE WIDELY USED?  ASK LAURA WHO WILL LIKELY USE.  IF YES, ADD.
-* What is the difference between permanent loc and library name?  PERM LOC IS DATA SET INCLUDING.  ON HOLDINGS RECORD. LOOK UP IN MM DOCUMENTATION?  LOCATION MOSTLY A LIBRARY. LOCATION OLIN, PEM LOC OLIN,REF.
-* Will folks think it's odd that we're not counting e-resources tracked in the Inventory in the same query?  Guess not maybe for items.
-* * Is Instance previously held to identify titles digitized owned previously in paper?
+* Add "language" from the instance JSON data. I assume it would have a parameter filter? There is more than one value if there is more than one language. If more than one language, the first is the primary language if there is one.  We would indicate to use truncation right?  Guess we would advise using, e.g., "%%eng%%", because there is not always a primary language? I don't think the source record would make it any clearer: https://www.loc.gov/marc/bibliographic/bd041.html   https://www.loc.gov/marc/bibliographic/bd008a.html 
+* Add two paramater filters for instance statuses name with "Cataloged" and "Batchloaded" as examples, and remove this from the WHERE clause hardcoded filters, including the comment used because of a lack of test data.  See note above in parameters section. 
+* Please remove dateofpublication from the query's MAIN TABLES WITH NEEDED COLUMNS SECTION, as it is in the query's STILL IN PROGRESS SECTION.  We will note: At this point in time, we are not bringing in the instance dataofpublication because it is not in standardized form; institutions may want to consider bringing it in if they set up parsing options to suit their needs. Will likely add date one and date two data from the source record when available (MARC  008 (places 7-10 for date 1, and 11-14 for date 2)).  260 https://www.loc.gov/marc/bibliographic/bd260.html
+LINDA TO ASK LAURA IF THIS IS STILL CORRECT: * Super relation type name / Sub relation type name: (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other.
+* NANCY WILL LOOK AT WHEN QUERY REDONE: Do I have the output correct?
+* LINDA WILL ASK LAURA IF MANY PEOPLE WILL USE: Do we want to add the holdings acquistion method ("purchased" is example in the folio-snapshot; MM document lists things like "gift", "deposit", "membership", "cooperative or consortial purchase", "lease" etc.) to identify items recieved as gifts, or is that measure too unreliable?  MM list: https://docs.google.com/spreadsheets/d/1RCZyXUA5rK47wZqfFPbiRM0xnw8WnMCcmlttT7B3VlI/edit#gid=139536469
+* LINDA WILL ASK LAURA IF MANY PEOPLE WILL USE: Do we want to add inventory statistical code types?  Chicago uses?
+* LINDA WILL ASK LAURA ABOUT THIS; FOR PRINT ITEMS, THE MM FILE SAYS THE primary use case is to support rights to Hathi Trust content.  DOES THIS MEAN SPECIFICALLY THAT WE DIGITIZED IT AND THEREFORE HAVE ACCESS RIGHTS? OR SOMETHING ELSE ALTOGETHER?  AXEL SUGGESTED SERIES? 
   </details>
   
 ## Requests not yet addressed
@@ -118,10 +114,11 @@ Aggregation: This query provides counts grouped by:
   
   See this page for additional information recorded by the Resource Management reporters: https://wiki.folio.org/x/OA8uAg 
   * Counting separately multiple formats cataloged on the same instance record (maybe by unique instances and unique holdings formats?)
-  * Information tracked possibly through holdings records notes?: previous bindings, copy notes, dedications, inscriptions, left by decedents?
+  * Information tracked possibly through holdings records notes?: precious bindings, copy notes, dedications, inscriptions, left by decedents? IF DID WOULD HAVE TO BE FILTER WITH TRUNCATION VERY INSTITUTIONAL SPECIFIC ON HOW TO NOTE. DIFFERENT FIELDS MAY BE USED.
   * When fields available?:
     * When the holdings discover suppress field becomes available, add it to the WHERE hardcoded filters and update the query commenting.
     * country of publication (source record)
+    * date of publication (At this point in time, we are not bringing in the instance dataofpublication because it is not in standardized form; institutions may want to consider bringing it in if they set up parsing options to suit their needs. Will likely add date one and date two data from the source record when available (MARC  008 (places 7-10 for date 1, and 11-14 for date 2)).  260 https://www.loc.gov/marc/bibliographic/bd260.html)
     * geographic area code (source record)
     * is open access (source record?)
     * withdrawn in timeframe (instance supresssed with status update date in timeframe??)

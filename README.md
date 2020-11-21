@@ -5,7 +5,7 @@
 * [Purpose](https://github.com/LM-15/falltest/blob/main/README.md#purpose)
 * [Filters](https://github.com/LM-15/falltest/blob/main/README.md#filters)
 * [Output](https://github.com/LM-15/falltest/blob/main/README.md#output)
-* [To be done before the R1 2021 release? / Questions for Nancy and Axel](https://github.com/LM-15/falltest/blob/main/README.md#to-be-done-before-the-r1-2021-release) 
+* [To be done before the R1 2021 release?](https://github.com/LM-15/falltest/blob/main/README.md#to-be-done-before-the-r1-2021-release) 
 * [Requests not yet addressed](https://github.com/LM-15/falltest/blob/main/README.md#requests-not-yet-addressed) 
 
 
@@ -41,7 +41,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   
 #### Parameter filters (at the top of the query):
 
-* Through parameter filters, this SQL allows you to easily type in text to filter by: instance status, resource format, receipt status, language, date, location and call number.  
+* Through parameter filters, this SQL allows you to easily type in text to filter by: instance status, resource format, receipt status, language, date, location, call number and holdings acquisition method.  
 
 <details>
   <summary>Click to read more!</summary>
@@ -52,6 +52,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
     * Instance types name (e.g., text, video, computer dataset, etc.)  (query allows up to three selected simultaneously)
     * Instance formats name (e.g., video – videocassette, unmediated – sheet, microform – microfilm roll, etc.)  (query allows up to three selected simultaneously)
     * Instance nature of content terms (e.g., autobiography, journal, newspaper, research report, etc.)
+    * Instance statistical code types name (e.g., ARL (Collection stats), DISC (Discovery); SERM (Serial management), etc.)
     * Instance statistical code name
     * Holdings statistical code name
     * Inventory modes of issuance name (e.g., serial, integrating resource, single unit, unspecified, etc.)
@@ -70,11 +71,12 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
 * Call number:
   * Holdings call number types name (e.g., LC, NLM, Dewey Decimal, etc.)
   * Holdings call number (note that the call number field is a text string only (no breakouts); you may want to use truncation symbols as suggested in the filter to get at call number ranges)
+  * Holdings acquisition method (e.g., gift, deposit, membership, etc.)
   </details>
   
   #### Other fields you might want to filter on in results:
     * Instance previously held  (indicates the item was "previously held" in terms of, for example, HathiTrust digital access)
-    * Super relation type name  (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other)
+    * Super relation type name  (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other) (This query assumes tat a relationship type is always included; adjust to ID if needed for your location.)
     * Sub relation type name (see immediately above)
 
 ## Output
@@ -101,11 +103,11 @@ Aggregation: This query provides counts grouped by:
 * Add "language" from the instance JSON data. I assume it would have a parameter filter? There is more than one value if there is more than one language. If more than one language, the first is the primary language if there is one.  We would indicate to use truncation right?  Guess we would advise using, e.g., "%%eng%%", because there is not always a primary language? I don't think the source record would make it any clearer: https://www.loc.gov/marc/bibliographic/bd041.html   https://www.loc.gov/marc/bibliographic/bd008a.html 
 * Add two parameter filters for instance statuses name with "Cataloged" and "Batchloaded" as examples, and remove this from the WHERE clause hardcoded filters, including the comment used because of a lack of test data.  See note above in parameters section. 
 * Please remove dateofpublication from the query's MAIN TABLES WITH NEEDED COLUMNS SECTION, as it is in the query's STILL IN PROGRESS SECTION.  We will note: At this point in time, we are not bringing in the instance dataofpublication because it is not in standardized form; institutions may want to consider bringing it in if they set up parsing options to suit their needs. Will likely add date one and date two data from the source record when available (e.g., MARC  008 (places 7-10 for date 1, and 11-14 for date 2)).
-* LINDA TO ASK LAURA IF THIS IS STILL CORRECT: Super relation type name / Sub relation type name: (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other.
+* Super relation type name / Sub relation type name: (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other. LAURA agrees that the presence of any field related to this should be enough for the purpose of this query.  Using this field though, assumes that there is always a value included for "name"; I've indciated that above.  This was kind of throwing me at first, because, we probably wouldn't really care what the relationship type is beyond whether it is parent or child?  Laura said: In the case of “multipart monograph” the parent is the description of the collective set of titles, and the children are the individual descriptions. We, at Cornell, would not do this. We would have one instance record that described all the volumes. We might use the parent/child elements for individual article-level records and the publications they came from or for monographic series, where the parent would be a record describing the series and the children would be the individual titles in that series.    For the sake of a query, though, I think it would be enough to simply look for the presence of any value in the sub_instance or super_instance elements (which I now see are the names of these tables, not child/parent) – though there is a local table that extracts the name of the relationship type."
 * NANCY WILL LOOK AT WHEN QUERY REDONE: Do I have the output correct?
-* LINDA WILL ASK LAURA IF MANY PEOPLE WILL USE: Do we want to add the holdings acquisition method ("purchased" is example in the folio-snapshot; MM document lists things like "gift", "deposit", "membership", "cooperative or consortial purchase", "lease" etc.) to identify items received as gifts, or is that measure too unreliable?  MM list: https://docs.google.com/spreadsheets/d/1RCZyXUA5rK47wZqfFPbiRM0xnw8WnMCcmlttT7B3VlI/edit#gid=139536469
-* LINDA WILL ASK LAURA IF MANY PEOPLE WILL USE: Do we want to add inventory statistical code types?  Chicago uses?
-* LINDA WILL ASK LAURA ABOUT THIS; FOR PRINT ITEMS, THE MM FILE SAYS THE primary use case is to support rights to HathiTrust content.  DOES THIS MEAN SPECIFICALLY THAT WE DIGITIZED IT AND THEREFORE HAVE ACCESS RIGHTS? OR SOMETHING ELSE ALTOGETHER?  AXEL SUGGESTED SERIES? 
+* Please add holdings acquisition method field as a parameter ("purchased" is example in the folio-snapshot; MM document lists things like "gift", "deposit", "membership", "cooperative or consortial purchase", "lease" etc.). MM list: https://docs.google.com/spreadsheets/d/1RCZyXUA5rK47wZqfFPbiRM0xnw8WnMCcmlttT7B3VlI/edit#gid=139536469  . I asked Laura who said to ask someone in RM.  Scott said he suspects that many institutions will use. He also noted "Unfortunately the values are hardcoded in the initial releases rather than allowing people to define their own where I think it could be more useful."
+* Please add inventory statistical code types name field as a paramter.  Laura says that it is highly likely to be used - that she'd be suprised if an implementation didn't use them.
+* I'm not sure this field will be as helpful as I thought it might be, but I guess it might be of help to some?  Here's what Laura said:  "The Instance previously held field is used by some institutions to keep track of rights for collections such as HathiTrust. My understanding is that if, for example, we had withdrawn a print title but it was available digitally in Hathi we could mark it “previously held” and, thus, report it to Hathi as something our users are entitled to view, but not count it when reporting on our actual, physical holdings. I don’t know if we plan to use this field or not; UChicago has this field now and I believe that is why it’s in the FOLIO data model."
   </details>
   
 ## Requests not yet addressed

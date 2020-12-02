@@ -81,8 +81,12 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
 
 ## Output
 Aggregation: This query provides counts grouped by:
+* Instance type id
 * Instance types name
+* Modes of issuance id
 * Modes of issuance name
+* Instance formats id
+* Instance formats code
 * Instance formats name
 * Instance statistical code name
 * Instance nature of content terms
@@ -95,21 +99,12 @@ Aggregation: This query provides counts grouped by:
 * Super relation type name  
 * Sub relation type name
 
-## To be done before the R1 2021 release
-<details>
-  <summary>Click to read more!</summary>
-  
-* In the WHERE clause, update the comment from "-- filter all virtual titles (surely need more virtual indicators)" to "-- filter all virtual titles (update values as needed)."
-* Add "language" from the instance JSON data. I assume it would have a parameter filter? There is more than one value if there is more than one language. If more than one language, the first is the primary language if there is one.  We would indicate to use truncation right?  Guess we would advise using, e.g., "%%eng%%", because there is not always a primary language? I don't think the source record would make it any clearer: https://www.loc.gov/marc/bibliographic/bd041.html   https://www.loc.gov/marc/bibliographic/bd008a.html 
-* Add two parameter filters for instance statuses name with "Cataloged" and "Batchloaded" as examples, and remove this from the WHERE clause hardcoded filters, including the comment used because of a lack of test data.  See note above in parameters section. 
-* Please remove dateofpublication from the query's MAIN TABLES WITH NEEDED COLUMNS SECTION, as it is in the query's STILL IN PROGRESS SECTION.  We will note: At this point in time, we are not bringing in the instance dataofpublication because it is not in standardized form; institutions may want to consider bringing it in if they set up parsing options to suit their needs. Will likely add date one and date two data from the source record when available (e.g., MARC  008 (places 7-10 for date 1, and 11-14 for date 2)).
-* Super relation type name / Sub relation type name: (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other. LAURA agrees that the presence of any field related to this should be enough for the purpose of this query.  Using this field though, assumes that there is always a value included for "name"; I've indciated that above.  This was kind of throwing me at first, because, we probably wouldn't really care what the relationship type is beyond whether it is parent or child?  Laura said: In the case of “multipart monograph” the parent is the description of the collective set of titles, and the children are the individual descriptions. We, at Cornell, would not do this. We would have one instance record that described all the volumes. We might use the parent/child elements for individual article-level records and the publications they came from or for monographic series, where the parent would be a record describing the series and the children would be the individual titles in that series.    For the sake of a query, though, I think it would be enough to simply look for the presence of any value in the sub_instance or super_instance elements (which I now see are the names of these tables, not child/parent) – though there is a local table that extracts the name of the relationship type."
-* NANCY WILL LOOK AT WHEN QUERY REDONE: Do I have the output correct?
-* Please add holdings acquisition method field as a parameter ("purchased" is example in the folio-snapshot; MM document lists things like "gift", "deposit", "membership", "cooperative or consortial purchase", "lease" etc.). MM list: https://docs.google.com/spreadsheets/d/1RCZyXUA5rK47wZqfFPbiRM0xnw8WnMCcmlttT7B3VlI/edit#gid=139536469  . I asked Laura who said to ask someone in RM.  Scott said he suspects that many institutions will use. He also noted "Unfortunately the values are hardcoded in the initial releases rather than allowing people to define their own where I think it could be more useful."
-* Please add inventory statistical code types name field as a paramter.  Laura says that it is highly likely to be used - that she'd be suprised if an implementation didn't use them.
-* I'm not sure this field will be as helpful as I thought it might be, but I guess it might be of help to some?  Here's what Laura said:  "The Instance previously held field is used by some institutions to keep track of rights for collections such as HathiTrust. My understanding is that if, for example, we had withdrawn a print title but it was available digitally in Hathi we could mark it “previously held” and, thus, report it to Hathi as something our users are entitled to view, but not count it when reporting on our actual, physical holdings. I don’t know if we plan to use this field or not; UChicago has this field now and I believe that is why it’s in the FOLIO data model."
-  </details>
-  
+first_language, instance_statistical_code_id, instance_statistical_code, instance_statistical_code_name, nature_of_content_id, nature_of_content_code, nature_of_content_name, holdings_type_id, holdings_type_name, holdings_callnumber_type_id, holdings_callnumber_type_name, holdings_statistical_code_id, holdings_statistical_code, holdings_statistical_code_name, holdings_receipt_status, location_name, previously_held, instance_super_relation_relationship_type_id, instance_super_relation_relationship_type_name, instance_sub_relation_relationship_type_id, instance_sub_relation_relationship_type_name
+
+
+
+
+
 ## Requests not yet addressed
 <details>
   <summary>Click to read more!</summary>

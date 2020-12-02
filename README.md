@@ -88,18 +88,29 @@ Aggregation: This query provides counts grouped by:
 * Instance formats id
 * Instance formats code
 * Instance formats name
+* Instance language (first)
+* Instance statistical code id
+* Instance statistical code
 * Instance statistical code name
-* Instance nature of content terms
+* Instance nature of content id
+* Instance nature of content code
+* Instance nature of content name
+* Holdings type id
 * Holdings types name
+* Holdings call number type id
 * Holdings call number types name
+* Holdings statisitcal code id
+* Holdings statistial code
 * Holdings statistical code name
 * Holdings receipt status
+* Inventory locations name
 * Instance previously held
-* Holdings location name
-* Super relation type name  
+* Instance relationship super instance id
+s super super relationsip
+* Instance super relation type name  
 * Sub relation type name
 
-first_language, instance_statistical_code_id, instance_statistical_code, instance_statistical_code_name, nature_of_content_id, nature_of_content_code, nature_of_content_name, holdings_type_id, holdings_type_name, holdings_callnumber_type_id, holdings_callnumber_type_name, holdings_statistical_code_id, holdings_statistical_code, holdings_statistical_code_name, holdings_receipt_status, location_name, previously_held, instance_super_relation_relationship_type_id, instance_super_relation_relationship_type_name, instance_sub_relation_relationship_type_id, instance_sub_relation_relationship_type_name
+instance_super_relation_relationship_type_id, instance_super_relation_relationship_type_name, instance_sub_relation_relationship_type_id, instance_sub_relation_relationship_type_name
 
 
 

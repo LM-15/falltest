@@ -5,7 +5,6 @@
 * [Purpose](https://github.com/LM-15/falltest/blob/main/README.md#purpose)
 * [Filters](https://github.com/LM-15/falltest/blob/main/README.md#filters)
 * [Output](https://github.com/LM-15/falltest/blob/main/README.md#output)
-* [To be done before the R1 2021 release?](https://github.com/LM-15/falltest/blob/main/README.md#to-be-done-before-the-r1-2021-release) 
 * [Requests not yet addressed](https://github.com/LM-15/falltest/blob/main/README.md#requests-not-yet-addressed) 
 
 
@@ -56,7 +55,7 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
     * Instance statistical code name
     * Holdings statistical code name
     * Inventory modes of issuance name (e.g., serial, integrating resource, single unit, unspecified, etc.)
-    * Holdings types name (e.g., physical, electronic, serial, mutli-part monograph, etc.)
+    * Holdings types name (e.g., physical, electronic, serial, multi-part monograph, etc.)
 * Receipt status:
   * Holdings receipt status (e.g., not currently received)
 * Language:
@@ -76,18 +75,18 @@ To provide **title** counts for **non-electronic** resources cataloged in the In
   
   #### Other fields you might want to filter on in results:
     * Instance previously held  (indicates the item was "previously held" in terms of, for example, HathiTrust digital access)
-    * Super relation type name  (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other) (This query assumes tat a relationship type is always included; adjust to ID if needed for your location.)
+    * Super relation type name  (content within titles is sometimes analyzed (cataloged) as part of the larger, parent title; if you need to avoid including one level in your count in such cases, this and the following measure will allow you to exclude one or the other) (This query assumes that a relationship type is always included.)
     * Sub relation type name (see immediately above)
 
 ## Output
 Aggregation: This query provides counts grouped by:
 * Instance type id
-* Instance types name
-* Modes of issuance id
-* Modes of issuance name
-* Instance formats id
-* Instance formats code
-* Instance formats name
+* Instance type name
+* Mode of issuance id
+* Mode of issuance name
+* Instance format id
+* Instance format code
+* Instance format name
 * Instance language (first)
 * Instance statistical code id
 * Instance statistical code
@@ -96,25 +95,19 @@ Aggregation: This query provides counts grouped by:
 * Instance nature of content code
 * Instance nature of content name
 * Holdings type id
-* Holdings types name
+* Holdings type name
 * Holdings call number type id
-* Holdings call number types name
-* Holdings statisitcal code id
-* Holdings statistial code
+* Holdings call number type name
+* Holdings statistical code id
+* Holdings statistical code
 * Holdings statistical code name
 * Holdings receipt status
 * Inventory locations name
 * Instance previously held
-* Instance relationship super instance id
-s super super relationsip
-* Instance super relation type name  
-* Sub relation type name
-
-instance_super_relation_relationship_type_id, instance_super_relation_relationship_type_name, instance_sub_relation_relationship_type_id, instance_sub_relation_relationship_type_name
-
-
-
-
+* Instance super relationship type id
+* Instance super relationship type name
+* Instance sub relationship type id
+* Instance sub relationship type name
 
 ## Requests not yet addressed
 <details>
@@ -129,10 +122,10 @@ instance_super_relation_relationship_type_id, instance_super_relation_relationsh
     * date of publication (At this point in time, we are not bringing in the instance dataofpublication because it is not in standardized form; institutions may want to consider bringing it in if they set up parsing options to suit their needs. Will likely add date one and date two data from the source record when available (MARC  008 (places 7-10 for date 1, and 11-14 for date 2)).
     * geographic area code (source record)
     * is open access (source record?)
-    * withdrawn in timeframe (instance suppressed with status update date in timeframe??)
+    * withdrawn in timeframe (instance suppressed with status update date in timeframe?)
     * transferred within the institution in a time period
     * has retention requirements / is an obligatory copy (have retention policy field on holdings?)
-    * is government document (how this will be addressed by institutions can very greatly; statistical code, location, source record (not yet available; e.g., MARC 008, 086 for federal US/Canadian docs))
+    * is government document (how this will be addressed by institutions can vary greatly; statistical code, location, source record (not yet available; e.g., MARC 008, 086 for federal US/Canadian docs))
     * acquired as part of a project
     * identifying records for collections like CRL if in catalog, so can be excluded for national reporting
   </details>

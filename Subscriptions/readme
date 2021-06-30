@@ -1,0 +1,98 @@
+Status:
+Awaiting review. Covers all of the queries in the Subscription Count Cluster (UXPROD-2398) and the Subscription Cost Cluster (UXPROD-3026):
+•	Rep. 63: Journals and newspapers in non-electronic form, still appearing and held by the library in the reporting year - subscription count 
+•	Rep. 64: Journals and newspapers in non-electronic form, held by the library in the reporting year, among those: canceled subscriptions in the reporting year. (In the query, workflow status will need to be changed to ‘Cancelled’)
+•	Rept. 268: Number of serial titles currently received: Acquisitions. (Export and count unique instance Ids)
+•	REP-90 Manage Serial Expenses: Show paid subscriptions by fiscal year, invoice payment date. Also include vendor, title, subscription to and subscription from, and other subscription related data elements. Typically, there is one PO line per subscription
+•	REP-153 Serial Subscriptions Purchase Order Expenditures: Cornell Acquisitions made decision not to put info on serial subscriptions on purchase orders, but selectors need this information. See Natalya. The Voyager report uses invoices to show total expenditures by title because there is zero amounts on ongoing purchase orders. 
+•	REP-38 Subscription Payments Over Multiple Fiscal Years: view cost changes to subscriptions over time; estimate serial payments still due. (Will need to adapt query to show multiple fiscal years.)
+•	REP-91 Serial Budget Use Report: This report is designed to show selectors how much of their budget has been spent on serials; show classifications for journals; need to tie fund to subscriptions through instance. RM Reports Team: subscription count query should mostly cover; need to add fund and budget from finance_transactions_invoice derived table and consider that there can be multiple funds per po line. (Budget information will be provided through another query
+
+Purpose:
+
+These two queries can be used to get counts of subscriptions with purchase orders in the Inventory, and their associated costs, if any.  You can use the parameter filters to specify:
+•	Whether or not there must have been a costs associated with the subscriptions within a specific time period
+•	And whether or not the subscription was open during the period in question, or closed out in the period in question
+•	See notes above for additional information about specific queries. This documentation is specifically about cost and count of current subscriptions.
+•	
+
+The Subscription Cost query uses the same parameters and hardcoded filters as the Subscriptions Count query, but adds the needed costs information (total amount spent per invoice Line).
+
+
+
+Assumptions:
+•	The count query is intended to be used for physical titles, electronic packages, and electronic titles cataloged individually in the Inventory. Note that electronic packages will contain multiple subscriptions that need to be counted in some other way, as appropriate for your institution.
+•	These queries do not report for subscriptions where there are not purchase orders; future queries may be written.
+•	To be a current subscription, the PO_TYPE needs to be “ongoing,” and the ORDER ISSUBSCRIPTION value “true.” And the WORKFLOW STATUS ‘Open’.
+•	To be available to users, the WORKFLOW_STATUS should not be pending
+•	If used to tell if the subscription is still in force, the POL SUBSCRIPTION TO date should be  greater than the last date in question
+•	If used to tell if the subscription was cancelled within the year in question, the POL SUBSCRIPTION TO date should be greater than the first date in question.
+•	For most institutions, POs for physical subscriptions will only have one PO line.  But since some institutions’ POs may have multiple lines (e.g., for electronic subscriptions), the resulting count will be per PO line (one count per row).   If this is different at your institution, please make appropriate changes to your query.
+•	We are assuming that each subscription may have more than one payment in a year, so there may be more than one row per purchase order line in the output even with the COUNT(DISTINCT ppo.id) command (export results to remove duplicates and to get summary counts). 
+•	The stipulation that there was a payment is only needed for the year in question.  Some institutions make multiple year payments for subscriptions; this query does not account for that.  
+
+
+Please note as always: These queries are intended to include the most common FOLIO elements that would normally be used for this purpose; reporters may need to add and remove fields to suit their local needs, and may need to write additional queries. Where possible, the query allows you to type text into “parameter filters” to help get the needed breakouts. Each institution’s reporters need to know how their institution tracks the metadata need to get requested breakouts.
+
+
+Filters:
+
+Hardcoded filers:
+•	Which elements are filtered via hardcoded filter:
+o	That the Purchase Order’s:
+	Order Type is “ongoing” Is Subscription status is “true”
+	Workflow status is “Open”
+
+Parameter filters available for ready use:
+•	PO_Line_Receipt Status: (e.g. 'Pending', ‘Awaiting Receipt,’ 'Partially Received', 'Fully Received', 'Cancelled', ‘Receipt Not Required,’ or leave blank for all) Note: if you are counting current subscriptions available to users, you should request ‘Partially Received’ only).
+•	Invoice payment date: lets you limit by timeframe. Note, however, that some payments may be made for multiple years. An institution may use ‘subscription_from’ and ‘and subscription_to’, to get the subscriptions dates. 
+•	PO_lines.order_format  (e.g.,'Electronic Resource', 'Physical Resource', 'P/E Mix', 'Other')
+•	Instance_nature_of_content (to meet particular DBS – Deutsche Bibliotheksstatistik requests)
+
+
+Output:
+You can use this information to breakout counts or exclude counts for summary counts. 
+
+Info identifying the order:
+•	PO Id (ppo.id)
+•	PO number
+•	PO line number
+•	Acquisition method
+•	PO line title or package title (pol.title_or_package)
+•	Instance title (poi.title)
+•	Vendor name (poorg.org_name)
+•	PO acquisition unit (poacq.po_acquisition_unit_name)
+•	PO bill to (ppo.bill_to)
+
+Info about the format of the item:
+•	Is this a package or not (pol.is_package)
+•	POL tags (if used)
+•	Instance nature of content for DBS reporters (inc.nature_of_content_term_name,-- should provide journal and newspaper)
+•	Purchase order line format (pol.order_format)
+•	Purchase order line physical material type (polp.pol_mat_type_name)
+•	Purchase order line electronic material type (pole.pol_er_mat_type_name)
+
+Info about the status/nature of the order:
+•	PO workflow status (ppo.workflow_status)
+•	POL receipt status (may not currently be functioning properly?) Current info as of May 2021: Relying on receipt looks messy.  A number of issues have been encountered with receiving and how it works during migration trials. It is possible we might initially just receive in inventory, but hope not to.
+•	PO approval date (ppo.approval_date)
+•	PO approved by id (ppo.approved_by_id)
+•	PO ongoing interval (poong.po_ongoing_interval)
+•	PO ongoing renewal date (poong.po_ongoing_renewal_date)
+•	PO ongoing review period (poong.po_ongoing_review_period)
+•	PO line subscription from date (pols.pol_subscription_from)
+•	PO line subscription to date (pols.pol_subscription_to) 
+•	PO line payment status (pol.payment_status)
+
+Additional Info about payment/cost for the subscription cost query:
+
+•	Invoice payment date (it.invoice_payment_date) 
+•	Transaction amount per invoice line converted. (Transaction_amount_per_invl_converted). This is the transaction amount for each invoice line in the system currency.
+•	Transaction invoice adjustment distributed (transaction_inv_adj_dist_converted). This is the amount of the adjustment made at the invoice level (if any) converted to the system currency. This needs to be calculated separately when an adjustment at the invoice level was made, not prorated and in addition to the invoice lines.
+•	Total paid converted (total_paid_converted). This is the addition of the invoice line total amount and the adjustment not prorated if any. 
+
+Note:  We are using the transaction table since some institutions may approve invoices in a foreign currency. The amount presented at the transaction level is always in the system currency.
+ 
+
+
+
